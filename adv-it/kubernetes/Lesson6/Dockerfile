@@ -1,10 +1,8 @@
-FROM amazonlinux
+FROM alpine:3.17
 
-RUN yum -y update
-RUN yum -y install httpd
-RUN yum -y install php
-
-COPY ./index.php /var/www/html/index.php
+RUN apk update && apk add apache2 php81-apache2
+RUN rm /var/www/localhost/htdocs/index.html
+COPY ./index.php /var/www/localhost/htdocs/index.php
 
 CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
 EXPOSE 80
