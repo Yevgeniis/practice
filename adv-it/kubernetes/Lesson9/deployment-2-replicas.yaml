@@ -1,0 +1,24 @@
+apiVersion : apps/v1
+
+kind: Deployment
+metadata:
+  name: my-web-deployment-replicas
+  labels:
+    app : my-k8s-app
+    env : prod
+    owner: yevgeniis
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: aka
+  template:
+    metadata:
+      labels:
+        project: aka
+    spec:
+      containers:
+        - name: k8s-web-con-aka
+          image: yevgeniis/k8sphp:1.0.0
+          ports:
+            - containerPort: 80

@@ -1,0 +1,21 @@
+apiVersion : apps/v1
+
+kind: Deployment
+metadata:
+  name: my-web-deployment
+  labels:
+    app : my-k8s-app
+spec:
+  selector:
+    matchLabels:
+      project: IGI 
+  template:
+    metadata:
+      labels:
+        project: IGI
+    spec:
+      containers:
+        - name: k8s-web-con
+          image: yevgeniis/k8sphp:1.0.0
+          ports:
+            - containerPort: 80

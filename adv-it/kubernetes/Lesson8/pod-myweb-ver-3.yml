@@ -15,7 +15,7 @@ spec:
       ports :
         - containerPort: 80
 
-    - name  : nginx
-      image : nginx:latest
+    - name  : container-api
+      image : tomcat:8.5.38
       ports :
         - containerPort: 8080

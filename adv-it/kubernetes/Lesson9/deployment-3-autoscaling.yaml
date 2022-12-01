@@ -1,0 +1,52 @@
+apiVersion : apps/v1
+
+kind: Deployment
+metadata:
+  name: my-web-deployment-autoscaling
+  labels:
+    app : my-k8s-app
+    env : prod
+    owner: yevgeniis
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: gta
+  template:
+    metadata:
+      labels:
+        project: gta
+    spec:
+      containers:
+        - name: k8s-web-con-gta
+          image: yevgeniis/k8sphp:1.0.1
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-atuoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta1v1
+    kind: Deployment
+    name: my-web-deployment-autoscaling
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 80
+    
+
+
+
+
+
